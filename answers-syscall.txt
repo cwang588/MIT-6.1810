@@ -1,0 +1,6 @@
+usertrap()
+0x7, SYS_exec
+machine mode
+lw	a3,0(zero), a3
+Try to dereference an unmapped address 0.
+initcode, 1

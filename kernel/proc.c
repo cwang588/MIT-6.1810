@@ -288,6 +288,8 @@ fork(void)
     return -1;
   }
 
+  //Copy trace mask
+  np->tracemask = p->tracemask;
   // Copy user memory from parent to child.
   if(uvmcopy(p->pagetable, np->pagetable, p->sz) < 0){
     freeproc(np);
@@ -685,4 +687,16 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+
+uint64
+processamount(void){
+    uint64 amount = 0;
+    struct proc *p;
+    for(p = proc; p < &proc[NPROC]; ++p){
+        if(p->state != UNUSED){
+            ++amount;
+        }
+    }
+    return amount;
 }
